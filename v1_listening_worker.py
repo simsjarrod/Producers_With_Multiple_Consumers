@@ -1,4 +1,6 @@
 """
+Author: Denise Case
+Modified by: Jarrod Sims
 
 Listens for task messages on the queue.
 This process runs continously. 
