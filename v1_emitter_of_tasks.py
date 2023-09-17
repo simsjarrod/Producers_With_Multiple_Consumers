@@ -39,15 +39,27 @@ channel = connection.channel()
 # and help ensure messages are processed in order
 # messages will not be deleted until the consumer acknowledges
 channel.queue_declare(queue="task_queue", durable=True)
-# create a message by joining the command line arguments
-message = " ".join(sys.argv[1:]) or "First task..."
+
+# create message 1 by joining the command line arguments
+message1 = " ".join(sys.argv[1:]) or "First task..."
 # publish the message to the queue
 channel.basic_publish(
     exchange="",
     routing_key="task_queue",
-    body=message,
+    body=message1,
     properties=pika.BasicProperties(delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE),
 )
+
+# create message 2 by joining the command line arguments
+message2 = " ".join(sys.argv[1:]) or "Second task..."
+# publish the message to the queue
+channel.basic_publish(
+    exchange="",
+    routing_key="task_queue",
+    body=message2,
+    properties=pika.BasicProperties(delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE),
+)
+
 # tell the user the message was sent
 #Option 1: using print statements
 #print(f" [x] Sent {message}")
